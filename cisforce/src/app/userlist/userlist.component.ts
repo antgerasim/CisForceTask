@@ -38,10 +38,6 @@ export class UserlistComponent implements OnInit {
     this.getList(this.pageLimitAndIndex);
   }
 
-  /*   pageChanged(event) {
-    this.config.currentPage = event;
-  } */
-
   pageChanged(page) {
     console.log(page);
     this.pageLimitAndIndex.index = page - 1;
@@ -55,14 +51,9 @@ export class UserlistComponent implements OnInit {
       data = params;
     }
     this.totalMemberCount = 0;
-    console.log(data);
-    this.appService.getUsers(data.index).subscribe(result => {
-      console.log(result);
-      // this.members = result.total;
-      //this.totalMemberCount = result.total;
-      //this.p = result.page + 1;
-      this.collection.data = result.data;
 
+    this.appService.getUsers(data.index).subscribe(result => {
+      this.collection.data = result.data;
       this.config = {
         itemsPerPage: result.per_page,
         currentPage: result.page,

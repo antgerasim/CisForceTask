@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@import "config";
+
+* {
+  //set basic resets and core styles from Social Network Theme With Sass - Part 1 min 11:30
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Raleway", "sans-serif";
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: #ffffff;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: $primary-color;
+}
+
+ul {
+  list-style: none; //remove bullets
+}
+
+img {
+  width: 100%;
+}
