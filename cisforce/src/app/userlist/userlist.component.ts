@@ -52,7 +52,7 @@ export class UserlistComponent implements OnInit {
     }
     this.totalMemberCount = 0;
 
-    this.appService.getUsers(data.index).subscribe(result => {
+    this.appService.getUsers(data.index).subscribe((result: any) => {
       this.collection.data = result.data;
       this.config = {
         itemsPerPage: result.per_page,

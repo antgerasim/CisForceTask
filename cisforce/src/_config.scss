@@ -5,7 +5,7 @@ $danger-color: #dc3545;
 $success-color: #28a745;
 $max-width: 1100px;
 
-//a mixin is like a function except it ist returning anything
+
 // Set text color based on background
 @function set-text-color($color) {
   @if(lightness($color) > 60) {

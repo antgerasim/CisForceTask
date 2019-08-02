@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       console.log(params.get("id"));
       const userId = Number(params.get("id"));
-      this.appService.getUser(userId).subscribe(result => {
+      this.appService.getUser(userId).subscribe((result: any) => {
         console.log(result.data);
         this.user = result.data;
       });
