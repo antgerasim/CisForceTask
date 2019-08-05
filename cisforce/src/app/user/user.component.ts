@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 
 import { ActivatedRoute } from "@angular/router";
-import { AppServiceService } from "../app-service.service";
 import { Location } from "@angular/common";
+import { User } from "./user.model";
+import { UserService } from "./../service/user.service";
 
 @Component({
   selector: "app-user",
@@ -10,26 +11,26 @@ import { Location } from "@angular/common";
   styleUrls: ["./user.component.scss"]
 })
 export class UserComponent implements OnInit {
-  user: any = {};
+  public user: User;
 
   constructor(
-    private appService: AppServiceService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private location: Location
   ) {}
 
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      console.log(params.get("id"));
-      const userId = Number(params.get("id"));
-      this.appService.getUser(userId).subscribe((result: any) => {
-        console.log(result.data);
-        this.user = result.data;
-      });
-    });
+  public ngOnInit(): void {
+    this.getUser();
   }
 
-  goBack() {
+  public goBack(): void {
     this.location.back();
+  }
+
+  private getUser(): void {
+    const userId = +this.route.snapshot.paramMap.get("id");
+    this.userService.getUser(userId).subscribe(userResp => {
+      this.user = userResp.data;
+    });
   }
 }

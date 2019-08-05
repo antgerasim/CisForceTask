@@ -1,6 +1,8 @@
-<h1>User # {{ user.id }}</h1>
-<p>First Name: {{ user.first_name }}</p>
-<p>Last Name: {{ user.last_name }}</p>
-<p>Email: {{ user.email }}</p>
+<div *ngIf="user" class="container-fluid text-center">
+  <h2 class="large">User # {{ user.id }}</h2>
+  <p class="lead">First Name: {{ user.first_name }}</p>
+  <p class="lead">Last Name: {{ user.last_name }}</p>
+  <p class="lead">Email: {{ user.email }}</p>
 
-<button (click)="goBack()">Go to back</button>
+  <button class="btn btn-primary" (click)="goBack()">Go to back</button>
+</div>

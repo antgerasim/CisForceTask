@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 
-import { AppServiceService } from "../app-service.service";
+import { NgxCollection } from "./ngxcollection.model";
+import { NgxConfig } from "./ngxconfig.model";
+import { NgxLimitIndex } from "./NgxLimitIndex.model";
+import { UserService } from "../service/user.service";
 
 @Component({
   selector: "app-userlist",
@@ -8,26 +11,17 @@ import { AppServiceService } from "../app-service.service";
   styleUrls: ["./userlist.component.scss"]
 })
 export class UserlistComponent implements OnInit {
-  config: any;
-  collection = { count: 60, data: [] };
-  // --
-  public pageLimitAndIndex = { limit: 20, index: 0 };
-  p = 1;
+  public config: NgxConfig;
+  public collection: NgxCollection;
+  public pageLimitAndIndex: NgxLimitIndex;
 
-  totalMemberCount = 0;
+  //totalMemberCount = 0;
 
-  constructor(private appService: AppServiceService) {}
+  constructor(private userService: UserService) {}
 
-  ngOnInit() {
-    // Create dummy data
-    // tslint:disable-next-line: no-var-keyword
-    for (var i = 0; i < this.collection.count; i++) {
-      this.collection.data.push({
-        id: i + 1,
-        // tslint:disable-next-line: quotemark
-        value: "items number " + (i + 1)
-      });
-    }
+  public ngOnInit(): void {
+    this.pageLimitAndIndex = { limit: 20, index: 0 };
+    this.collection = { count: 60, data: [] };
 
     this.config = {
       itemsPerPage: 5,
@@ -38,26 +32,23 @@ export class UserlistComponent implements OnInit {
     this.getList(this.pageLimitAndIndex);
   }
 
-  pageChanged(page) {
-    console.log(page);
+  public pageChanged(page: number): void {
     this.pageLimitAndIndex.index = page - 1;
     this.getList(this.pageLimitAndIndex);
   }
 
-  // tslint:disable-next-line: ban-types
-  getList(params: Object = null) {
+  private getList(params: NgxLimitIndex = null): void {
     let data = null;
     if (params != null) {
       data = params;
     }
-    this.totalMemberCount = 0;
 
-    this.appService.getUsers(data.index).subscribe((result: any) => {
-      this.collection.data = result.data;
+    this.userService.getUsers(data.index).subscribe(userListResp => {
+      this.collection.data = userListResp.data;
       this.config = {
-        itemsPerPage: result.per_page,
-        currentPage: result.page,
-        totalItems: result.total
+        itemsPerPage: userListResp.per_page,
+        currentPage: userListResp.page,
+        totalItems: userListResp.total
       };
     });
   }

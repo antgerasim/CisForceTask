@@ -1,0 +1,61 @@
+@import "config";
+@import "utilities";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Raleway", "sans-serif";
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: #ffffff;
+  color: #333;
+}
+
+table,
+th,
+td {
+  border: 1px solid grey;
+
+}
+
+table {
+  table-layout: fixed;
+
+  .user-id {
+    width: 2rem;
+  }
+}
+
+
+
+a {
+  text-decoration: none;
+  color: $primary-color;
+}
+
+ul {
+  list-style: none; //remove bullets
+}
+
+img {
+  width: auto;
+  height: auto;
+  max-width: 50%;
+}
+
+.ngx-pagination .current {
+  @include set-background($primary-color);
+  border-radius: $border-radius-btn;
+
+  &:hover {
+    background: lighten($color: $primary-color, $amount: 5%) !important;
+  }
+}
+
+.content {
+  overflow-wrap: break-word;
+}
